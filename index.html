@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional CV</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e345eb7187.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            color: #d2dae0;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a3353;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 0px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #0a3151;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff00ff;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #666;
+            border-radius: 58px;
+            opacity: 0.3;
+        }
+
+        /* Side Bar */
+        .side1 {
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #0d4068;
+            width: 40px;
+            height: 100vh;
+            box-shadow: 0px 10px 5px 5px rgba(0,0,0,0.50);
+            z-index: 5;
+        }
+
+        .side1 h4 {
+            position: fixed;
+            transform: rotate(270deg);
+            left: -120px;
+            bottom: 150px;
+            margin: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* Main Layout */
+        .site {
+            height: 100vh;
+            margin: 0 25px 0 70px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 80vh;
+            grid-gap: 25px;
+        }
+
+        /* Profile Section */
+        .side-section {
+            background-color: #0d4068;
+            margin-top: 25px;
+            box-shadow: 0px 0px 11px 5px rgba(0,0,0,0.50);
+            height: 105%;
+        }
+
+        .profile {
+            display: grid;
+            grid-template-rows: auto auto;
+        }
+
+        .pic {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border: 10px solid #224764;
+        }
+
+        .pic img {
+            max-width: 130px;
+            height: 130px;
+            border: 10px solid #0a3353;
+        }
+
+        .name {
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        /* Navigation */
+        .nav {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .nav-link {
+            color: #a4a7aa;
+            text-decoration: none;
+            display: block;
+            padding: 12px;
+            border-top: 2px inset #3c6699;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ecedee;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        /* Main Content Section */
+        .main-section {
+            background: linear-gradient(0deg,rgba(10,54,86,0.8),rgba(63,81,181,0.5));
+            margin-top: 25px;
+            height: 92vh;
+            border: 5px solid #0d4068;
+            box-shadow: 0px 0px 11px 5px rgba(0,0,0,0.50);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        /* Landing Section */
+        .landing {
+            height: 100vh;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .big {
+            font-size: 55px;
+            color: #eee !important;
+            font-weight: 900;
+            margin: 20px 0;
+        }
+
+        .small {
+            font-size: 19px;
+            letter-spacing: 4px;
+        }
+
+        /* About Section */
+        #about {
+            padding: 50px;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .about-content p {
+            flex: 1;
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        #skills {
+            padding: 50px;
+        }
+
+        .skills-container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        /* Achievements Section - Extended Background */
+        #achievements {
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(255,103,56,0.1), rgba(0,188,212,0.1));
+            /* Extended background to connect with projects and contact sections */
+            position: relative;
+        }
+
+        #achievements::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(255,103,56,0.1), rgba(0,188,212,0.1));
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .achievement-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6738, #00bcd4, #ff6738);
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .achievement-card:hover::before {
+            opacity: 1;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #ff6738, #00bcd4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .achievement-card h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #00bcd4;
+            font-size: 18px;
+        }
+
+        .achievement-card p {
+            text-align: center;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .achievement-date {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #ff6738;
+            font-weight: 600;
+        }
+
+        /* Projects Section - Separate with extended background */
+        #projects {
+            padding: 80px 50px 50px;
+            background: linear-gradient(135deg, rgba(255,103,56,0.1), rgba(0,188,212,0.1));
+            margin-top: 0;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        #projects::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(255,103,56,0.1), rgba(0,188,212,0.1));
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-caption {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .project-caption h3 {
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section - Separate below projects */
+        #contact {
+            padding: 80px 50px 100px;
+            background: linear-gradient(135deg, rgba(255,103,56,0.15), rgba(0,188,212,0.15));
+            position: relative;
+            min-height: 60vh;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(135deg, rgba(255,103,56,0.1), rgba(0,188,212,0.1));
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #d2dae0;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .social-link:hover i {
+            color: #ff6738;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin: 20px 10px;
+            transition: 0.3s;
+        }
+
+        .btn1 {
+            border: 2px solid #eee;
+            color: #eee;
+        }
+
+        .btn2 {
+            background-color: #eee;
+            color: #0a3353;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: #ff6738;
+            border-color: #ff6738;
+            color: #0a3353;
+        }
+
+        /* CV Download Button */
+        .cv-download {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .cv-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background-color: #ff6738;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cv-button:hover {
+            background-color: #ff4713;
+            transform: translateY(-2px);
+        }
+
+        .cv-button i {
+            color: white;
+        }
+
+        /* Section Separator */
+        .section-separator {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff6738, #00bcd4, transparent);
+            margin: 30px 0;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .site {
+                grid-template-columns: 1fr;
+            }
+
+            .side-section {
+                display: none;
+            }
+
+            .main-section {
+                margin-top: 0;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="side1">
+        <h4>Zhulva's Professional <span style="color:#00bcd4;">Portfolio</span></h4>
+    </div>
+
+    <div class="site">
+        <div class="side-section">
+            <div class="profile">
+                <div class="pic">
+                    <img src="img/image.jpg" alt="Profile Picture">
+                </div>
+                <div class="name"><b>N. Zhulva</b> S.</div>
+                <ul class="nav">
+                    <li class="nav-list">
+                        <a href="#home" class="nav-link"><i class="fas fa-home"></i>HOME</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="#about" class="nav-link"><i class="fas fa-user"></i>ABOUT</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="#skills" class="nav-link"><i class="fas fa-chart-bar"></i>SKILLS</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="#achievements" class="nav-link"><i class="fas fa-trophy"></i>PRESTASI</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="#projects" class="nav-link"><i class="fas fa-laptop-code"></i>PROJECTS</a>
+                    </li>
+                    <li class="nav-list">
+                        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i>CONTACT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-section">
+            <section class="landing" id="home">
+                <p>HELLO, I'M</p>
+                <h1 class="big">N. Zhulva S.</h1>
+                <p class="small">Designer | Programmer | Writer</p>
+                <div>
+                    <a href="img/filecv.pdf" class="btn btn1" target="_blank">Download CV</a>
+                    <a href="#contact" class="btn btn2">Contact Me</a>
+                </div>
+            </section>
+
+            <section id="about">
+                <h2 class="big">About Me</h2>
+                <div class="about-content">
+                    <p>Saya adalah manusia seutuhnya—bukan sekadar "THINGS" 😤 Diberkahi akal brilian, kreativitas tanpa batas, dan daya tahan luar biasa menghadapi tantangan—baik akademik maupun ujian semesta yang penuh "cinta" 🙃. Meski kecil, imut, dan tampak tidak berbahaya (jangan tertipu yaa hohoho! 😏), saya telah menciptakan berbagai proyek yang meningkatkan level, kecanggihan, dan tentu saja sentuhan SpEkTaKuLeRrRrr~✨ di setiap bidang yang saya geluti.</p>
+                    <p>Lebih suka bercanda daripada serius? Jelas! Tapi semangat saya dalam berkarya nggak main-main. Dari desain arsitektur hingga teknologi, dari coding sampai menulis fiksi, saya terus mengeksplorasi dan mengembangkan kemampuan—karena batasan itu cuma ilusi! Jadi, kalau ada tantangan baru, mari lihat siapa yang akan menaklukkan siapa… 😈🔥</p>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h2 class="big">My Skills</h2>
+                <div class="skills-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </section>
+
+            <section id="achievements">
+                <h2 class="big">My Achievements</h2>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3>Juara 1 (dari 55 peserta) lomba pencak silat</h3>
+                        <p> tingkat provinsi Jawa Timur yang diselenggarakan oleh Pimpinan Wilayah II Tapak Suci Jawa Timur bersama dengan KONI Jawa Timur.</p>
+                        <div class="achievement-date">2022</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Juara 2 (dari 341 peserta) lomba Olimpiade Informatika</h3>
+                        <p>tingkat Nasional yang diselenggarakan oleh Pusat Kejuaraan Sains Nasional (PUSKANAS) bersama dengan Yayasan Berlian Hati Mulia.</p>
+                        <div class="achievement-date">2024</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h3>Juara 3 (dari 124 peserta) lomba Olimpiade Komputer</h3>
+                        <p>tingkat Nasional yang diselenggarakan oleh Pusat Olimpiade Sains Nasional (POSI).</p>
+                        <div class="achievement-date">2024</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3>OPSI Penelitian (fisika terapan & rekayasa)</h3>
+                        <p>PESERTA lolos proposal - 200 PROPOSAL TERBAIK.</p>
+                        <div class="achievement-date">2024-2025</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Penelitian (bioteknologi)</h3>
+                        <p>PESERTA  - 10 besar</p>
+                        <div class="achievement-date">2024an</div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Olimpiade Desain Produk</h3>
+                        <p>lolos kualifikasi desain produk nasional.</p>
+                        <div class="achievement-date">2024an</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-separator"></div>
+
+            <section id="projects">
+                <h2 class="big">My Projects</h2>
+                <p style="text-align: center; margin-bottom: 20px; font-size: 18px; color: #00bcd4;">Berikut adalah beberapa proyek terbaik yang telah saya kerjakan dengan penuh dedikasi dan kreativitas</p>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="img/Project (1).jpg" alt="Project 1">
+                        <div class="project-caption">
+                            <h3>SketchUp Design</h3>
+                            <p>Zhulva, siswi kreatif nan rendah hati 😌, merancang desain toko di SketchUp—bukan sekadar berdiri, tapi bergaya! 🏢✨</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="img/Project (2).jpg" alt="Project 2">
+                        <div class="project-caption">
+                            <h3>WokWi Arduino</h3>
+                            <p>Zhulva, siswi pintar (dan agak licik 😏), menaklukkan Arduino di WokWi—bikin teknologi nurut? Gampang! ⚡🤖</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="img/Project (3).jpg" alt="Project 3">
+                        <div class="project-caption">
+                            <h3>JU Write</h3>
+                            <p>Zhulva, jago ngoding (katanya 😌) & menulis fiksi bilingual—buktinya? Pikiranku liar, bukan cuma soal error! ✍🔥</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="font-style: italic; color: #ff6738;">Setiap proyek adalah hasil dari eksperimen, pembelajaran, dan tentunya sedikit kegilaan kreatif! 🚀</p>
+                </div>
+            </section>
+
+            <div class="section-separator"></div>
+
+            <section id="contact">
+                <h2 class="big">Get In Touch</h2>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 18px; color: #00bcd4;">Mari terhubung! Saya selalu terbuka untuk diskusi, kolaborasi, atau sekadar berbagi cerita menarik 🌟</p>
+                
+                <div class="social-links">
+                    <a href="mailto:zhulva.santoso@gmail.com" class="social-link">
+                        <i class="fas fa-envelope social-icon"></i>
+                        <span>Email</span>
+                    </a>
+                    <a href="http://wa.me/6282233471426" class="social-link">
+                        <i class="fab fa-whatsapp social-icon"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="https://www.instagram.com/xszhull/" class="social-link">
+                        <i class="fab fa-instagram social-icon"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@jujournalz" class="social-link">
+                        <i class="fab fa-tiktok social-icon"></i>
+                        <span>TikTok</span>
+                    </a>
+                    <a href="https://x.com/jujournal" class="social-link">
+                        <i class="fab fa-twitter social-icon"></i>
+                        <span>Twitter</span>
+                    </a>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="font-size: 16px; color: #d2dae0;">Jangan ragu untuk menghubungi saya! Saya sangat senang bertemu dengan orang-orang baru dan mendengar ide-ide segar 💫</p>
+                    <p style="font-size: 14px; color: #ff6738; margin-top: 20px;">© 2024 N. Zhulva S. - Designed with ❤️ and a touch of magic ✨</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Skills Chart
+        var ctx = document.getElementById('skillsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Programming', 'SketchUp', 'Socialite', 'Writing', 'Cooperate'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [90, 83, 85, 78, 80],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation effects
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const scrollTop = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
